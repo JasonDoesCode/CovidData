@@ -94,7 +94,7 @@ WITH global_sales_genre AS (
 	ON vgsales.rank = vginfo.rank
 	GROUP BY vginfo.genre
 )
-SELECT genre, genre_sales, ROUND(genre_sales/(SELECT SUM(global_sales) FROM vgsales)*100, 2) AS genre_sales_percentage
+SELECT genre, ROUND(genre_sales,2), ROUND(genre_sales/(SELECT SUM(global_sales) FROM vgsales)*100, 2) AS genre_sales_percentage
 FROM global_sales_genre
 ORDER BY 3 DESC;
 
