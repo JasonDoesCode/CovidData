@@ -86,7 +86,7 @@ FROM global_sales_genre
 ORDER BY 3 DESC;
 
 
--- With two different tables that require a join
+-- Genre as a percent of global sales with two different tables that require a join
 WITH global_sales_genre AS (
 	SELECT vginfo.genre, SUM(vgsales.global_sales) as genre_sales
 	FROM vginfo
