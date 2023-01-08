@@ -22,7 +22,7 @@ ORDER BY 2 DESC;
 
 -- Create table vginfo - holds all the descriptive information about the game excluding sales data
 CREATE TABLE vginfo
-AS (SELECT name, platform, year, genre, publisher
+AS (SELECT name, sales.rank, platform, year, genre, publisher
 	FROM sales);
 
 -- Create table vgsales - holds all sales data about a specfic video game
@@ -74,6 +74,30 @@ WHERE genre = 'Action';
 SELECT genre, SUM(global_sales)
 FROM sales
 GROUP BY genre;
+
+-- Genre as a percent of global sales
+WITH global_sales_genre AS (
+	SELECT genre, SUM(global_sales) AS genre_sales
+	FROM sales
+	GROUP BY genre
+)
+SELECT genre, genre_sales, ROUND((genre_sales/(SELECT SUM(global_sales) FROM sales)*100),2) AS genre_sales_percentage
+FROM global_sales_genre
+ORDER BY 3 DESC;
+
+
+-- With two different tables that require a join
+WITH global_sales_genre AS (
+	SELECT vginfo.genre, SUM(vgsales.global_sales) as genre_sales
+	FROM vginfo
+	JOIN vgsales
+	ON vgsales.rank = vginfo.rank
+	GROUP BY vginfo.genre
+)
+SELECT genre, genre_sales, ROUND(genre_sales/(SELECT SUM(global_sales) FROM vgsales)*100, 2) AS genre_sales_percentage
+FROM global_sales_genre
+ORDER BY 3 DESC;
+
 
 
 
