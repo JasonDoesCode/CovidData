@@ -1,5 +1,7 @@
 DESCRIBE sales;
 
+SELECT * FROM sales;
+
 -- The global sales of all Publishers
 SELECT publisher, ROUND(SUM(global_sales), 2) AS Publisher_Global_Sales
 FROM sales
@@ -23,6 +25,17 @@ SELECT genre, ROUND(SUM(global_sales), 2) AS global_sales
 FROM sales
 GROUP BY genre
 ORDER BY 2 DESC;
+
+-- Global sales of each genre split by regional sales
+SELECT genre, 
+	   ROUND(SUM(NA_sales), 2) AS NA_Sales, 
+       ROUND(SUM(EU_sales), 2) AS EU_Sales, 
+       ROUND(SUM(JP_sales), 2) AS JP_Sales, 
+       ROUND(SUM(other_sales), 2) AS Other_Sales, 
+       ROUND(SUM(global_sales), 2) AS Global_Sales
+FROM sales
+GROUP BY genre
+ORDER BY 1;
 
 -- Splitting the sales table into two tables to practice using joins in queries
 -- Create table vginfo - holds all the descriptive information about the game excluding sales data
@@ -182,6 +195,8 @@ INNER JOIN publisher_sales
 ON publisher_sales.publisher = vginfo.publisher)
 ORDER BY 1;
 
+
+SELECT COUNT(DISTINCT platform) FROM sales;
 
 
 
