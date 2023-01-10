@@ -154,7 +154,8 @@ SELECT vgsales.rank, vginfo.name, vginfo.publisher,
 FROM vginfo
 INNER JOIN vgsales
 ON vginfo.rank = vgsales.rank
-WHERE vginfo.publisher = 'Nintendo';
+LIMIT 10;
+-- WHERE vginfo.publisher = 'Nintendo';
 
 
 -- Comparing each game's global with the average global sales of that publisher
@@ -194,9 +195,6 @@ ON vginfo.rank = vgsales.rank)
 INNER JOIN publisher_sales
 ON publisher_sales.publisher = vginfo.publisher)
 ORDER BY 1;
-
-
-SELECT COUNT(DISTINCT platform) FROM sales;
 
 
 
