@@ -6,6 +6,12 @@ FROM sales
 GROUP BY publisher
 ORDER BY 2 DESC;
 
+-- Highest Global Sales per Year
+SELECT year, MAX(global_sales)
+FROM sales
+GROUP BY year
+ORDER BY 1;
+
 -- The variety of genres from each publisher
 SELECT publisher, COUNT(DISTINCT genre) AS Unique_Genres
 FROM sales
@@ -13,13 +19,12 @@ GROUP BY publisher
 ORDER BY Unique_Genres DESC;
 
 -- Global sales grouped by their respective genres
-SELECT genre, SUM(global_sales)
+SELECT genre, ROUND(SUM(global_sales), 2) AS global_sales
 FROM sales
 GROUP BY genre
 ORDER BY 2 DESC;
 
 -- Splitting the sales table into two tables to practice using joins in queries
-
 -- Create table vginfo - holds all the descriptive information about the game excluding sales data
 CREATE TABLE vginfo
 AS (SELECT name, sales.rank, platform, year, genre, publisher
@@ -53,29 +58,14 @@ SELECT genre, COUNT(name)
 FROM vginfo
 GROUP BY genre;
 
-SELECT vginfo.genre, SUM(vgsales.global_sales) AS Global_Sales_Per_Genre
+-- Global Sales Per Genre
+SELECT vginfo.genre, ROUND(SUM(vgsales.global_sales), 2) AS Global_Sales_Per_Genre
 FROM vginfo
 INNER JOIN vgsales
 ON vginfo.name = vgsales.name
 GROUP BY vginfo.genre;
 
-SELECT vginfo.genre, 
-ROUND(SUM(vgsales.global_sales),2) AS Global_Sales_Per_Genre, 
-(SUM(vgsales.global_sales)/(SELECT SUM(global_sales) FROM vgsales))*100 AS Global_sales_per_genre_percentage
-FROM vginfo
-INNER JOIN vgsales
-ON vginfo.name = vgsales.name
-GROUP BY vginfo.genre;
-
-SELECT SUM(global_sales) 
-FROM sales
-WHERE genre = 'Action';
-
-SELECT genre, SUM(global_sales)
-FROM sales
-GROUP BY genre;
-
--- Genre as a percent of global sales
+-- Each Genre's percent of total global sale
 WITH global_sales_genre AS (
 	SELECT genre, SUM(global_sales) AS genre_sales
 	FROM sales
@@ -94,19 +84,23 @@ WITH global_sales_genre AS (
 	ON vgsales.rank = vginfo.rank
 	GROUP BY vginfo.genre
 )
-SELECT genre, ROUND(genre_sales,2), ROUND(genre_sales/(SELECT SUM(global_sales) FROM vgsales)*100, 2) AS genre_sales_percentage
+SELECT genre, 
+	   ROUND(genre_sales,2) AS global_sales, 
+	   ROUND(genre_sales/(SELECT SUM(global_sales) FROM vgsales)*100, 2) AS percent_global_sales
 FROM global_sales_genre
 ORDER BY 3 DESC;
 
 
 -- Same Result without the need for a CTE
-SELECT genre, SUM(global_sales) AS genre_global_sales,
-       ROUND(SUM(global_sales) / (SELECT SUM(global_sales) FROM sales) * 100, 2) AS percent_global_sales
+SELECT genre, 
+	   ROUND(SUM(global_sales), 2) AS global_sales,
+	   ROUND(SUM(global_sales) / (SELECT SUM(global_sales) FROM sales) * 100, 2) AS percent_global_sales
 FROM sales
 GROUP BY genre
 ORDER BY 3 DESC;
 
-SELECT vginfo.genre, ROUND(SUM(vgsales.global_sales), 2) AS genre_global_sales,
+SELECT vginfo.genre, 
+	   ROUND(SUM(vgsales.global_sales), 2) AS global_sales,
 	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
 FROM vgsales
 INNER JOIN vginfo
@@ -115,7 +109,8 @@ GROUP BY genre
 ORDER BY 3 DESC;
 
 -- Sales per platform
-SELECT vginfo.platform, ROUND(SUM(vgsales.global_sales), 2) AS platform_global_sales,
+SELECT vginfo.platform, 
+	   ROUND(SUM(vgsales.global_sales), 2) AS global_sales,
 	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
 FROM vgsales
 INNER JOIN vginfo
@@ -125,7 +120,8 @@ ORDER BY 3 DESC
 LIMIT 10;
 
 -- Sales per publisher
-SELECT vginfo.publisher, ROUND(SUM(vgsales.global_sales), 2) AS publisher_global_sales,
+SELECT vginfo.publisher, 
+	   ROUND(SUM(vgsales.global_sales), 2) AS global_sales,
 	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
 FROM vgsales
 INNER JOIN vginfo
@@ -185,6 +181,7 @@ ON vginfo.rank = vgsales.rank)
 INNER JOIN publisher_sales
 ON publisher_sales.publisher = vginfo.publisher)
 ORDER BY 1;
+
 
 
 
