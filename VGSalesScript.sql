@@ -1,6 +1,7 @@
 DESCRIBE sales;
 
-SELECT * FROM sales;
+SELECT * FROM sales
+LIMIT 10;
 
 -- The global sales of all Publishers
 SELECT publisher, ROUND(SUM(global_sales), 2) AS Publisher_Global_Sales
