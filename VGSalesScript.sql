@@ -99,8 +99,63 @@ FROM global_sales_genre
 ORDER BY 3 DESC;
 
 
+-- Same Result without the need for a CTE
+SELECT genre, SUM(global_sales) AS genre_global_sales,
+       ROUND(SUM(global_sales) / (SELECT SUM(global_sales) FROM sales) * 100, 2) AS percent_global_sales
+FROM sales
+GROUP BY genre
+ORDER BY 3 DESC;
 
+SELECT vginfo.genre, ROUND(SUM(vgsales.global_sales), 2) AS genre_global_sales,
+	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
+FROM vgsales
+INNER JOIN vginfo
+ON vgsales.rank = vginfo.rank
+GROUP BY genre
+ORDER BY 3 DESC;
 
+-- Sales per platform
+SELECT vginfo.platform, ROUND(SUM(vgsales.global_sales), 2) AS platform_global_sales,
+	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
+FROM vgsales
+INNER JOIN vginfo
+ON vgsales.rank = vginfo.rank
+GROUP BY platform
+ORDER BY 3 DESC
+LIMIT 10;
 
+-- Sales per publisher
+SELECT vginfo.publisher, ROUND(SUM(vgsales.global_sales), 2) AS publisher_global_sales,
+	   ROUND(SUM(vgsales.global_sales) / (SELECT SUM(global_sales) FROM vgsales) * 100, 2) AS percent_global_sales
+FROM vgsales
+INNER JOIN vginfo
+ON vgsales.rank = vginfo.rank
+GROUP BY publisher
+ORDER BY 3 DESC
+LIMIT 10;
+
+-- Every games regional sales as a percentage of that games global sales
+-- Add optional WHERE clause to narrow down to a specfic publisher
+SELECT vgsales.rank, vginfo.name, vginfo.publisher, 
+	   ROUND((na_sales/global_sales)*100,2) AS na_sales_percent,
+       ROUND((eu_sales/global_sales)*100,2) AS eu_sales_percent,
+       ROUND((jp_sales/global_sales)*100,2) AS jp_sales_percent,
+       ROUND((other_sales/global_sales)*100,2) AS other_sales_percent,
+       vgsales.global_sales
+FROM vginfo
+INNER JOIN vgsales
+ON vginfo.rank = vgsales.rank
+WHERE vginfo.publisher = 'Nintendo';
+
+WITH game_gbsales AS ( 
+SELECT vginfo.name, vginfo.publisher, vgsales.global_sales
+FROM vginfo
+INNER JOIN vgsales
+ON vginfo.rank = vgsales.rank
+)
+SELECT name, publisher, global_sales, 
+	(SELECT AVG(global_sales) 
+	 FROM vgsales
+	 
 
 
