@@ -147,15 +147,45 @@ INNER JOIN vgsales
 ON vginfo.rank = vgsales.rank
 WHERE vginfo.publisher = 'Nintendo';
 
+
+-- Comparing each game's global with the average global sales of that publisher
 WITH game_gbsales AS ( 
-SELECT vginfo.name, vginfo.publisher, vgsales.global_sales
+SELECT vginfo.rank, vginfo.name, vginfo.publisher, vgsales.global_sales
 FROM vginfo
 INNER JOIN vgsales
 ON vginfo.rank = vgsales.rank
+),
+
+publisher_global_sales AS (
+SELECT publisher, ROUND(AVG(vgsales.global_sales), 2) AS publisher_avg_sales
+FROM vgsales
+INNER JOIN vginfo
+ON vgsales.rank = vginfo.rank
+GROUP BY publisher
 )
-SELECT name, publisher, global_sales, 
-	(SELECT AVG(global_sales) 
-	 FROM vgsales
-	 
+
+SELECT game_gbsales.rank, name, game_gbsales.publisher, global_sales, publisher_avg_sales
+FROM game_gbsales
+INNER JOIN publisher_global_sales
+ON game_gbsales.publisher = publisher_global_sales.publisher
+ORDER BY game_gbsales.rank;
+
+-- With a subquery instead of a CTE
+WITH publisher_sales AS (
+	SELECT vginfo.publisher, AVG(global_sales) AS publisher_global_avg
+	FROM vginfo
+	INNER JOIN vgsales
+	ON vginfo.rank = vgsales.rank
+	GROUP BY publisher
+)
+SELECT vginfo.rank, vginfo.name, vginfo.publisher, vgsales.global_sales, publisher_global_avg
+FROM ((vginfo
+INNER JOIN vgsales
+ON vginfo.rank = vgsales.rank) 
+INNER JOIN publisher_sales
+ON publisher_sales.publisher = vginfo.publisher)
+ORDER BY 1;
+
+
 
 
