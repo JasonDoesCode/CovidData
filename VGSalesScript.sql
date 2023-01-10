@@ -170,7 +170,7 @@ INNER JOIN publisher_global_sales
 ON game_gbsales.publisher = publisher_global_sales.publisher
 ORDER BY game_gbsales.rank;
 
--- With a subquery instead of a CTE
+-- With a subquery instead of a second CTE
 WITH publisher_sales AS (
 	SELECT vginfo.publisher, AVG(global_sales) AS publisher_global_avg
 	FROM vginfo
