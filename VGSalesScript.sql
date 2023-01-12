@@ -198,5 +198,25 @@ ON publisher_sales.publisher = vginfo.publisher)
 ORDER BY 1;
 
 
+SELECT year, MAX(global_sales)
+FROM sales
+GROUP BY year;
 
+-- Best Selling Game By Year
+WITH yearly_max_sales AS (
+	SELECT year, MAX(global_sales) AS yearly_max
+	FROM sales
+	GROUP BY year 
+)
+SELECT name, sales.year, sales.platform, yearly_max
+FROM sales
+JOIN yearly_max_sales
+ON yearly_max_sales.year = sales.year AND yearly_max_sales.yearly_max = sales.global_sales
+ORDER BY 2;
 
+-- Best Selling Game By Year as a subquery
+SELECT name, year, platform, global_sales
+FROM sales
+WHERE (year, global_sales) IN (SELECT year, MAX(global_sales) 
+							   FROM sales GROUP BY year) 
+ORDER BY year;
