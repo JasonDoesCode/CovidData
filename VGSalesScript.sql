@@ -220,3 +220,15 @@ FROM sales
 WHERE (year, global_sales) IN (SELECT year, MAX(global_sales) 
 							   FROM sales GROUP BY year) 
 ORDER BY year;
+
+-- Sales of every game genre by year
+SELECT genre, year, ROUND(SUM(global_sales),2) AS global_sales
+FROM sales
+GROUP BY genre, year
+ORDER BY genre;
+
+-- Sales of every game genre by year (for North America)
+SELECT genre, year, ROUND(SUM(NA_sales),2) AS NA_sales
+FROM sales
+GROUP BY genre, year
+ORDER BY genre;
