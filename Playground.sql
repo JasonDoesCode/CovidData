@@ -1,3 +1,6 @@
+-- This script is a collection of practice scripts that were used to create ouputs.
+-- These did not make it into the final visualizations for the project, but were used to perform basic data exploration.
+
 DESCRIBE sales;
 
 SELECT * FROM sales

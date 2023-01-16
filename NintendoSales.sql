@@ -1,3 +1,5 @@
+-- Other test script intented to explore the data on a single publisher - Nintendo.
+
 -- Nintendo's Top Genres by Global Sales
 SELECT genre, SUM(global_sales)
 FROM sales
