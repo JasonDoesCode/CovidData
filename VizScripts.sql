@@ -26,7 +26,7 @@ GROUP BY platform
 ORDER BY 2 DESC;
 
 -- Global Sales vs NA Sales
-SELECT name, genre, publisher, NA_sales, global_sales
+SELECT name, genre, publisher, NA_sales, global_sales, ROUND((global_sales - NA_sales), 2)
 FROM sales;
 
 -- Regional Sales
