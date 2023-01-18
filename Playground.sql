@@ -241,3 +241,22 @@ SELECT year, COUNT(*)
 FROM sales
 GROUP BY year
 ORDER BY year;
+
+-- SELECT platform, SUM(global_sales)
+-- FROM sales
+-- GROUP BY platform
+-- ORDER BY 2 DESC
+-- LIMIT 10;
+
+WITH top_platforms AS (
+	SELECT platform, SUM(global_sales)
+    FROM sales
+    GROUP BY platform
+    ORDER BY 2 DESC
+    LIMIT 10
+)
+SELECT platform, genre, ROUND(SUM(global_sales), 2) AS sales
+FROM sales
+WHERE sales.platform IN (SELECT platform FROM top_platforms)
+GROUP BY platform, genre
+ORDER BY 1;
