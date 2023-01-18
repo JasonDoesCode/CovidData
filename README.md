@@ -1,6 +1,6 @@
 # 🎮 VideoGameSales 
 
-This project outlines data exploration on a dataset from Kaggle - Video Game Sales, which recorded any video game that sold more than 100,000 copies. The primary purpose of exploring this dataset was to get comfortable with the usage of sub queries, joins, and common table expressions (CTEs). The full list of queries that were performed on this dataset can be found in the VGSalesScript.sql file.
+This project outlines data exploration on a dataset from Kaggle - Video Game Sales, which recorded any video game that sold more than 100,000 copies. The primary purpose of exploring this dataset was to get comfortable with the usage of sub queries, joins, and common table expressions (CTEs). The list of queiries that were used to create the supporting dashboard for this project can be found in the VizScripts.sql file. The full list of scripts can be found in the Playground.sql script file.
 
 The dataset included 16,598 records & the following columns:
 - **Rank** - Ranking of overall sales
