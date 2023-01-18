@@ -235,3 +235,9 @@ SELECT genre, year, ROUND(SUM(NA_sales),2) AS NA_sales
 FROM sales
 GROUP BY genre, year
 ORDER BY genre;
+
+-- Number of observations from every year
+SELECT year, COUNT(*)
+FROM sales
+GROUP BY year
+ORDER BY year;
