@@ -4,7 +4,7 @@ In 2021, video games made a collective $180BN in sales revenue. For context, thi
 The list of queiries that were used to create the supporting dashboard for this project can be found in the VizScripts.sql file. The full list of scripts can be found in the Playground.sql script file.
 
 ### Important Links:
-[Tableau Dashboard](https://public.tableau.com/views/VideoGameSales_16739100252120/VideoGameSalesDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link) | [Accompanying Article](https://fortune-avocado-c5c.notion.site/Video-Game-Sales-3e1db42038184a8dac0c43a6011998e4)
+[Tableau Dashboard](https://public.tableau.com/views/VideoGameSales_16739100252120/VideoGameSalesDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link) | [Blog Post](https://fortune-avocado-c5c.notion.site/Video-Game-Sales-3e1db42038184a8dac0c43a6011998e4)
 
 
 ### Socials:
