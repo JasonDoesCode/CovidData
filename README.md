@@ -1,16 +1,12 @@
 # 🎮 VideoGameSales 
+In 2021, video games made a collective $180BN in sales revenue. For context, this amount is greater than both the movie and music industries - combined. While gaming is a lucrative space, not much is known about video games to non-endemic organizations. This report aims to outline popular genres, regions, and publishers to establish a comprehensive overview of the industry.
 
-This project outlines data exploration on a dataset from Kaggle - Video Game Sales, which recorded any video game that sold more than 100,000 copies. The primary purpose of exploring this dataset was to get comfortable with the usage of sub queries, joins, and common table expressions (CTEs). The list of queiries that were used to create the supporting dashboard for this project can be found in the VizScripts.sql file. The full list of scripts can be found in the Playground.sql script file.
+The list of queiries that were used to create the supporting dashboard for this project can be found in the VizScripts.sql file. The full list of scripts can be found in the Playground.sql script file.
 
-The dataset included 16,598 records & the following columns:
-- **Rank** - Ranking of overall sales
-- **Name** - The games name
-- **Platform** - Platform of the games release (i.e. PC,PS4, etc.)
-- **Year** - Year of the game's release
-- **Genre** - Genre of the game
-- **Publisher** - Publisher of the game
-- **NA_Sales** - Sales in North America (in millions)
-- **EU_Sales** - Sales in Europe (in millions)
-- **JP_Sales** - Sales in Japan (in millions)
-- **Other_Sales** - Sales in the rest of the world (in millions)
-- **Global_Sales** - Total worldwide sales
+### Important Links:
+[Tableau Dashboard](https://public.tableau.com/views/VideoGameSales_16739100252120/VideoGameSalesDashboard?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link) | [Accompanying Article](https://fortune-avocado-c5c.notion.site/Video-Game-Sales-3e1db42038184a8dac0c43a6011998e4)
+
+
+### Socials:
+[LinkedIn](https://www.linkedin.com/in/imjasonleo/) | [Github](https://github.com/JasonDoesCode) | [Twitter](https://twitter.com/JasonDoesCode)
+
