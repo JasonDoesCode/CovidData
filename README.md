@@ -70,7 +70,7 @@ Following the observation of a sales decline, I wanted to know if there were any
 
 ### Takeaways
 - Action games resisted the industry slump of 2011 until 2013
-- Action games were not initially popular, but quickly became the most popular most 2000
+- Action games were not initially popular, but quickly became the most popular post 2000
 - All genres generally trend together indicating the market trend is the most significant
 
 ## Top 10 Publishers
