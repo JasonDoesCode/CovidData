@@ -260,3 +260,10 @@ FROM sales
 WHERE sales.platform IN (SELECT platform FROM top_platforms)
 GROUP BY platform, genre
 ORDER BY 1;
+
+-- Top 10 Platforms, ranked by Sales in Japan
+SELECT platform, ROUND(SUM(JP_sales), 2) AS Japan_Sales
+FROM sales
+GROUP BY platform
+ORDER BY 2 DESC
+LIMIT 10;
